@@ -5,7 +5,6 @@ using Nop.Core;
 using Nop.Core.Caching;
 using Nop.Data;
 using Nop.Plugin.MultiFactorAuth.GoogleAuthenticator.Domains;
-using Nop.Services.Caching;
 
 namespace Nop.Plugin.MultiFactorAuth.GoogleAuthenticator.Services
 {
@@ -16,7 +15,6 @@ namespace Nop.Plugin.MultiFactorAuth.GoogleAuthenticator.Services
     {
         #region Fields
 
-        private readonly ICacheKeyService _cacheKeyService;
         private readonly IRepository<GoogleAuthenticatorRecord> _repository;
         private readonly IStaticCacheManager _staticCacheManager;
         private readonly IStoreContext _storeContext;
@@ -28,13 +26,12 @@ namespace Nop.Plugin.MultiFactorAuth.GoogleAuthenticator.Services
 
         #region Ctr
 
-        public GoogleAuthenticatorService(ICacheKeyService cacheKeyService,
+        public GoogleAuthenticatorService(
             IRepository<GoogleAuthenticatorRecord> repository,
             IStaticCacheManager staticCacheManager,
             IStoreContext storeContext,
             IWorkContext workContext)
         {
-            _cacheKeyService = cacheKeyService;
             _repository = repository;
             _staticCacheManager = staticCacheManager;
             _storeContext = storeContext;
@@ -106,7 +103,7 @@ namespace Nop.Plugin.MultiFactorAuth.GoogleAuthenticator.Services
             if (configurationId == 0)
                 return null;
 
-            return _staticCacheManager.Get(_cacheKeyService.PrepareKeyForDefaultCache(GoogleAuthenticatorDefaults.ConfigurationCacheKey, configurationId), () =>
+            return _staticCacheManager.Get(_staticCacheManager.PrepareKeyForDefaultCache(GoogleAuthenticatorDefaults.ConfigurationCacheKey, configurationId), () =>
                 _repository.GetById(configurationId));
         }
 

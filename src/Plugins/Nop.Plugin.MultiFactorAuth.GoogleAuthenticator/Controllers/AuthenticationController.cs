@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Core.Domain.Customers;
+using Nop.Core.Events;
 using Nop.Plugin.MultiFactorAuth.GoogleAuthenticator.Models;
 using Nop.Plugin.MultiFactorAuth.GoogleAuthenticator.Services;
 using Nop.Services.Authentication;
 using Nop.Services.Customers;
-using Nop.Services.Events;
 using Nop.Services.Localization;
 using Nop.Services.Logging;
 using Nop.Services.Messages;

@@ -9,7 +9,7 @@ namespace Nop.Plugin.MultiFactorAuth.GoogleAuthenticator.Infrastructure
 {
     public class DependencyRegistrar : IDependencyRegistrar
     {
-        public void Register(ContainerBuilder builder, ITypeFinder typeFinder, NopConfig config)
+        public void Register(ContainerBuilder builder, ITypeFinder typeFinder, AppSettings appSettings)
         {
             //register custom services
             builder.RegisterType<GoogleAuthenticatorService>().AsSelf().InstancePerLifetimeScope();

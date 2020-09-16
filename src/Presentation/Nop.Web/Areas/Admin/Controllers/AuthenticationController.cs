@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nop.Core.Domain.Customers;
+using Nop.Core.Events;
 using Nop.Services.Authentication.External;
 using Nop.Services.Authentication.MultiFactor;
 using Nop.Services.Configuration;
-using Nop.Services.Events;
 using Nop.Services.Plugins;
 using Nop.Services.Security;
 using Nop.Web.Areas.Admin.Factories;
