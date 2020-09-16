@@ -109,18 +109,6 @@ namespace Nop.Web.Framework.Migrations.UpgradeTo440
                 "ShoppingCart.AddToWishlist.Update",
                 "ShoppingCart.UpdateCartItem",
                 "Tax.SelectType",
-
-                //<MFA #475>
-                "Admin.Configuration.ExternalAuthenticationMethods",
-                "Admin.Configuration.ExternalAuthenticationMethods.BackToList",
-                "Admin.Configuration.ExternalAuthenticationMethods.Configure",
-                "Admin.Configuration.ExternalAuthenticationMethods.Fields.DisplayOrder",
-                "Admin.Configuration.ExternalAuthenticationMethods.Fields.FriendlyName",
-                "Admin.Configuration.ExternalAuthenticationMethods.Fields.IsActive",
-                "Admin.Configuration.ExternalAuthenticationMethods.Fields.SystemName",
-                "Permission.ManageExternalAuthenticationMethods"
-                //</MFA #475>
-
             });
 
             localizationService.AddLocaleResource(new Dictionary<string, string>
@@ -224,13 +212,6 @@ namespace Nop.Web.Framework.Migrations.UpgradeTo440
                 ["Admin.System.Warnings.PluginNotEnabled.AutoFixAndRestart"] = "Uninstall and delete all not used plugins automatically (site will be restarted)",
                 //<MFA #475>
                 ["Admin.Configuration.Authentication"] = "Authentication",
-                ["Admin.Configuration.Authentication.ExternalMethods"] = "External authentication",
-                ["Admin.Configuration.Authentication.ExternalMethods.BackToList"] = "back to external authentication method list",
-                ["Admin.Configuration.Authentication.ExternalMethods.Configure"] = "Configure",
-                ["Admin.Configuration.Authentication.ExternalMethods.Fields.DisplayOrder"] = "Display order",
-                ["Admin.Configuration.Authentication.ExternalMethods.Fields.FriendlyName"] = "Friendly name",
-                ["Admin.Configuration.Authentication.ExternalMethods.Fields.IsActive"] = "Is active",
-                ["Admin.Configuration.Authentication.ExternalMethods.Fields.SystemName"] = "System name",
                 ["Admin.Configuration.Authentication.MultiFactorMethods"] = "Multifactor authentication",
                 ["Admin.Configuration.Authentication.MultiFactorMethods.BackToList"] = "back to multifactor authentication method list",
                 ["Admin.Configuration.Authentication.MultiFactorMethods.Configure"] = "Configure",
@@ -239,7 +220,6 @@ namespace Nop.Web.Framework.Migrations.UpgradeTo440
                 ["Admin.Configuration.Authentication.MultiFactorMethods.Fields.IsActive"] = "Is active",
                 ["Admin.Configuration.Authentication.MultiFactorMethods.Fields.SystemName"] = "System name",
 
-                ["Permission.Authentication.ManageExternalMethods"] = "Admin area. Manage External Authentication Methods",
                 ["Permission.Authentication.ManageMultifactorMethods"] = "Admin area. Manage Multifactor Authentication Methods",
 
                 ["Admin.Configuration.Settings.CustomerUser.EnableMultifactorAuth"] = "Enable multifactor authentication",
@@ -286,6 +266,16 @@ namespace Nop.Web.Framework.Migrations.UpgradeTo440
                 new { Name = "Admin.Catalog.Attributes.SpecificationAttributes.UsedByProducts", NewName = "Admin.Catalog.Attributes.SpecificationAttributes.SpecificationAttribute.UsedByProducts" },
                 new { Name = "Admin.Catalog.Attributes.SpecificationAttributes.UsedByProducts.Product", NewName = "Admin.Catalog.Attributes.SpecificationAttributes.SpecificationAttribute.UsedByProducts.Product" },
                 new { Name = "Admin.Catalog.Attributes.SpecificationAttributes.UsedByProducts.Published", NewName = "Admin.Catalog.Attributes.SpecificationAttributes.SpecificationAttribute.UsedByProducts.Published" },
+                //<MFA #475>
+                new { Name = "Admin.Configuration.ExternalAuthenticationMethods.Fields.DisplayOrder", NewName = "Admin.Configuration.Authentication.ExternalMethods.Fields.DisplayOrder"},
+                new { Name = "Admin.Configuration.ExternalAuthenticationMethods.Fields.FriendlyName", NewName = "Admin.Configuration.Authentication.ExternalMethods.Fields.FriendlyName"},
+                new { Name = "Admin.Configuration.ExternalAuthenticationMethods.Fields.IsActive", NewName = "Admin.Configuration.Authentication.ExternalMethods.Fields.IsActive"},
+                new { Name = "Admin.Configuration.ExternalAuthenticationMethods.Fields.SystemName", NewName = "Admin.Configuration.Authentication.ExternalMethods.Fields.SystemName"},
+                new { Name = "Admin.Configuration.ExternalAuthenticationMethods.BackToList", NewName = "Admin.Configuration.Authentication.ExternalMethods.BackToList"},
+                new { Name = "Admin.Configuration.ExternalAuthenticationMethods.Configure", NewName = "Admin.Configuration.Authentication.ExternalMethods.Configure"},
+                new { Name = "Admin.Configuration.ExternalAuthenticationMethods", NewName = "Admin.Configuration.Authentication.ExternalMethods"},
+                new { Name = "Permission.ManageExternalAuthenticationMethods", NewName = "Permission.Authentication.ManageExternalMethods"},
+                //</MFA #475>
             };
 
             var languageService = EngineContext.Current.Resolve<ILanguageService>();
