@@ -149,15 +149,21 @@ namespace Nop.Services.Customers
                 return CustomerLoginResults.WrongPassword;
             }
 
-            var selectedProvider = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.SelectedMultiFactorAuthProviderAttribute);
-            var enabledMFACustomer = _genericAttributeService.GetAttribute<bool>(customer, NopCustomerDefaults.MultiFactorIsEnabledAttribute);
-
-            if (!string.IsNullOrEmpty(selectedProvider))
+            if (_customerSettings.EnableMultifactorAuth)
             {
-                var method = _mfaPluginManager.LoadPluginBySystemName(selectedProvider);
-                var methodIsActive = _mfaPluginManager.IsPluginActive(method);
-                if (methodIsActive && enabledMFACustomer && _customerSettings.EnableMultifactorAuth)
-                    return CustomerLoginResults.RequiresMultiFactor;
+                var enabledMFACustomer = _genericAttributeService.GetAttribute<bool>(customer, NopCustomerDefaults.MultiFactorIsEnabledAttribute);
+                if (enabledMFACustomer)
+                {
+                    var selectedProvider = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.SelectedMultiFactorAuthProviderAttribute);
+                    if (!string.IsNullOrEmpty(selectedProvider))
+                    {
+                        var method = _mfaPluginManager.LoadPluginBySystemName(selectedProvider);
+                        var methodIsActive = _mfaPluginManager.IsPluginActive(method);
+
+                        if (methodIsActive)
+                            return CustomerLoginResults.RequiresMultiFactor;
+                    }
+                }
             }
 
             //update login details

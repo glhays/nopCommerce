@@ -123,7 +123,8 @@ namespace Nop.Plugin.MultiFactorAuth.GoogleAuthenticator.Controllers
                 {
                     Id = configuration.Id,
                     Customer = configuration.Customer,
-                    SecretKey = configuration.SecretKey
+                    SecretKey = configuration.SecretKey,
+                    StoreId = configuration.StoreId
                 });
             });
 

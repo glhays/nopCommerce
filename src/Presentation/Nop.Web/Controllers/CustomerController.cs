@@ -18,6 +18,7 @@ using Nop.Core.Domain.Security;
 using Nop.Core.Domain.Tax;
 using Nop.Core.Events;
 using Nop.Core.Http;
+using Nop.Core.Http.Extensions;
 using Nop.Services.Authentication;
 using Nop.Services.Authentication.External;
 using Nop.Services.Authentication.MultiFactor;
@@ -468,9 +469,13 @@ namespace Nop.Web.Controllers
                     case CustomerLoginResults.RequiresMultiFactor:
                         {
                             var userName = _customerSettings.UsernamesEnabled ? model.Username : model.Email;
-                            HttpContext.Session.SetString(NopCustomerDefaults.MFAUserName, userName);
-                            HttpContext.Session.SetString(NopCustomerDefaults.MFARememberMe, model.RememberMe.ToString());
-                            HttpContext.Session.SetString(NopCustomerDefaults.MFAReturnUrl, returnUrl);
+                            var customerMFARequest = new CustomerMFARequest
+                            {
+                                MFAUserName = userName,
+                                MFARememberMe = model.RememberMe,
+                                MFAReturnUrl = returnUrl
+                            };
+                            HttpContext.Session.Set<CustomerMFARequest>(NopCustomerDefaults.CustomerMFAInfo, customerMFARequest);
                             return RedirectToRoute("MultiFactorAuthorization");
                         }
                     case CustomerLoginResults.CustomerNotExist:
@@ -509,11 +514,12 @@ namespace Nop.Web.Controllers
             if (!_customerSettings.EnableMultifactorAuth)
                 return RedirectToRoute("Login");
 
-            var username = HttpContext.Session.GetString(NopCustomerDefaults.MFAUserName);
-            if (string.IsNullOrEmpty(username))
+            var customerMFARequest = HttpContext.Session.Get<CustomerMFARequest>(NopCustomerDefaults.CustomerMFAInfo);
+            var userName = customerMFARequest.MFAUserName;
+            if (string.IsNullOrEmpty(userName))
                 return RedirectToRoute("HomePage");
 
-            var customer = _customerSettings.UsernamesEnabled ? _customerService.GetCustomerByUsername(username) : _customerService.GetCustomerByEmail(username);
+            var customer = _customerSettings.UsernamesEnabled ? _customerService.GetCustomerByUsername(userName) : _customerService.GetCustomerByEmail(userName);
             if (customer == null)
                 return RedirectToRoute("HomePage");
 

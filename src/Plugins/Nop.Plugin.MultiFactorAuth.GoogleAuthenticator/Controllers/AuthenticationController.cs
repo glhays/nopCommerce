@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Events;
+using Nop.Core.Http.Extensions;
 using Nop.Plugin.MultiFactorAuth.GoogleAuthenticator.Models;
 using Nop.Plugin.MultiFactorAuth.GoogleAuthenticator.Services;
 using Nop.Services.Authentication;
@@ -93,9 +94,10 @@ namespace Nop.Plugin.MultiFactorAuth.GoogleAuthenticator.Controllers
         [HttpPost]
         public IActionResult VerifyGoogleAuthenticator(TokenModel model)
         {
-            var username = HttpContext.Session.GetString(NopCustomerDefaults.MFAUserName);
-            var returnUrl = HttpContext.Session.GetString(NopCustomerDefaults.MFAReturnUrl);
-            bool.TryParse(HttpContext.Session.GetString(NopCustomerDefaults.MFARememberMe), out var isPersist);
+            var customerMFARequest = HttpContext.Session.Get<CustomerMFARequest>(NopCustomerDefaults.CustomerMFAInfo);
+            var username = customerMFARequest.MFAUserName;
+            var returnUrl = customerMFARequest.MFAReturnUrl;
+            var isPersist = customerMFARequest.MFARememberMe;
 
             var customer = _customerSettings.UsernamesEnabled ? _customerService.GetCustomerByUsername(username) : _customerService.GetCustomerByEmail(username);
             if (customer == null)
