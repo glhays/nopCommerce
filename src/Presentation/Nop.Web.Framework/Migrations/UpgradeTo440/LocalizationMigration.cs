@@ -108,7 +108,19 @@ namespace Nop.Web.Framework.Migrations.UpgradeTo440
                 "RewardPoints.Message.Expired",
                 "ShoppingCart.AddToWishlist.Update",
                 "ShoppingCart.UpdateCartItem",
-                "Tax.SelectType"
+                "Tax.SelectType",
+
+                //<MFA #475>
+                "Admin.Configuration.ExternalAuthenticationMethods",
+                "Admin.Configuration.ExternalAuthenticationMethods.BackToList",
+                "Admin.Configuration.ExternalAuthenticationMethods.Configure",
+                "Admin.Configuration.ExternalAuthenticationMethods.Fields.DisplayOrder",
+                "Admin.Configuration.ExternalAuthenticationMethods.Fields.FriendlyName",
+                "Admin.Configuration.ExternalAuthenticationMethods.Fields.IsActive",
+                "Admin.Configuration.ExternalAuthenticationMethods.Fields.SystemName",
+                "Permission.ManageExternalAuthenticationMethods"
+                //</MFA #475>
+
             });
 
             localizationService.AddLocaleResource(new Dictionary<string, string>
@@ -208,7 +220,39 @@ namespace Nop.Web.Framework.Migrations.UpgradeTo440
                 ["Admin.Catalog.Attributes.SpecificationAttributes.SpecificationAttributeGroup.Info"] = "Attribute group info",
                 ["Admin.Catalog.Attributes.SpecificationAttributes.SpecificationAttributeGroup.Updated"] = "The attribute group has been updated successfully.",
                 ["Admin.Catalog.Products.SpecificationAttributes.NameFormat"] = "{0} >> {1}",
-                ["Admin.System.Warnings.PluginsOverrideSameService"] = "The \"{0}\" interface/class has been overridden in those assemblies: {1}. This situation may cause errors because there is only one of them will be used (Please contact the assembly(ies) developers to solve this problem.)"
+                ["Admin.System.Warnings.PluginsOverrideSameService"] = "The \"{0}\" interface/class has been overridden in those assemblies: {1}. This situation may cause errors because there is only one of them will be used (Please contact the assembly(ies) developers to solve this problem.)",
+                ["Admin.System.Warnings.PluginNotEnabled.AutoFixAndRestart"] = "Uninstall and delete all not used plugins automatically (site will be restarted)",
+                //<MFA #475>
+                ["Admin.Configuration.Authentication"] = "Authentication",
+                ["Admin.Configuration.Authentication.ExternalMethods"] = "External authentication",
+                ["Admin.Configuration.Authentication.ExternalMethods.BackToList"] = "back to external authentication method list",
+                ["Admin.Configuration.Authentication.ExternalMethods.Configure"] = "Configure",
+                ["Admin.Configuration.Authentication.ExternalMethods.Fields.DisplayOrder"] = "Display order",
+                ["Admin.Configuration.Authentication.ExternalMethods.Fields.FriendlyName"] = "Friendly name",
+                ["Admin.Configuration.Authentication.ExternalMethods.Fields.IsActive"] = "Is active",
+                ["Admin.Configuration.Authentication.ExternalMethods.Fields.SystemName"] = "System name",
+                ["Admin.Configuration.Authentication.MultiFactorMethods"] = "Multifactor authentication",
+                ["Admin.Configuration.Authentication.MultiFactorMethods.BackToList"] = "back to multifactor authentication method list",
+                ["Admin.Configuration.Authentication.MultiFactorMethods.Configure"] = "Configure",
+                ["Admin.Configuration.Authentication.MultiFactorMethods.Fields.DisplayOrder"] = "Display order",
+                ["Admin.Configuration.Authentication.MultiFactorMethods.Fields.FriendlyName"] = "Friendly name",
+                ["Admin.Configuration.Authentication.MultiFactorMethods.Fields.IsActive"] = "Is active",
+                ["Admin.Configuration.Authentication.MultiFactorMethods.Fields.SystemName"] = "System name",
+
+                ["Permission.Authentication.ManageExternalMethods"] = "Admin area. Manage External Authentication Methods",
+                ["Permission.Authentication.ManageMultifactorMethods"] = "Admin area. Manage Multifactor Authentication Methods",
+
+                ["Admin.Configuration.Settings.CustomerUser.EnableMultifactorAuth"] = "Enable multifactor authentication",
+                ["Admin.Configuration.Settings.CustomerUser.EnableMultifactorAuth.Hint"] = "When enabled, users attempting to access the public store must complete a second step to verify their account.",
+                
+                ["PageTitle.MultiFactorAuthentication"] = "Multifactor authentication",
+                ["PageTitle.MultiFactorAuthorization"] = "Multifactor authorization",
+                ["Account.MultiFactorAuthentication.Fields.IsEnabled"] = "Is enabled",
+                ["Account.MultiFactorAuthentication.Settings"] = "Settings",
+                ["Account.MultiFactorAuthentication.Providers"] = "Authentication providers",
+                ["Account.MultiFactorAuthentication.Providers.NoActive"] = "No active providers"
+                //</MFA #475>
+
             });
 
             // rename locales

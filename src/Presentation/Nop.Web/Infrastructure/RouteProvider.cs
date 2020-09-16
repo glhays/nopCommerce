@@ -31,6 +31,10 @@ namespace Nop.Web.Infrastructure
             endpointRouteBuilder.MapControllerRoute("Login", $"{pattern}login/",
                 new { controller = "Customer", action = "Login" });
 
+            // multi-factor authorization digit code page
+            endpointRouteBuilder.MapControllerRoute("MultiFactorAuthorization", "multi-factor-authorization",
+                            new { controller = "Customer", action = "MultiFactorAuthorization" });
+
             //register
             endpointRouteBuilder.MapControllerRoute("Register", $"{pattern}register/",
                 new { controller = "Customer", action = "Register" });
@@ -304,6 +308,9 @@ namespace Nop.Web.Infrastructure
             endpointRouteBuilder.MapControllerRoute("CustomerAddressAdd", $"{pattern}customer/addressadd",
                 new { controller = "Customer", action = "AddressAdd" });
 
+            endpointRouteBuilder.MapControllerRoute("CustomerMFAProviderConfig", $"{pattern}customer/providerconfig",
+                new { controller = "Customer", action = "ConfigureMultiFactorAuthProvider" });
+
             //customer profile page
             endpointRouteBuilder.MapControllerRoute("CustomerProfile",
                 pattern + "profile/{id:min(0)}",
@@ -375,6 +382,10 @@ namespace Nop.Web.Infrastructure
             //customer check gift card balance 
             endpointRouteBuilder.MapControllerRoute("CheckGiftCardBalance", $"{pattern}customer/checkgiftcardbalance",
                 new { controller = "Customer", action = "CheckGiftCardBalance" });
+
+            //customer multifactor authentication settings 
+            endpointRouteBuilder.MapControllerRoute("MultiFactorAuthenticationSettings", $"{pattern}customer/multifactorauthentication",
+                new { controller = "Customer", action = "MultiFactorAuthentication" });
 
             //poll vote AJAX link
             endpointRouteBuilder.MapControllerRoute("PollVote", "poll/vote",
