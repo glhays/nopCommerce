@@ -108,6 +108,7 @@ namespace Nop.Plugin.MultiFactorAuth.GoogleAuthenticator
                 ["Plugins.MultiFactorAuth.GoogleAuthenticator.Customer.Account"] = "Account: ",
                 ["Plugins.MultiFactorAuth.GoogleAuthenticator.Customer.TypeKey"] = "Time based : Yes",
                 ["Plugins.MultiFactorAuth.GoogleAuthenticator.Customer.Key"] = "Key: ",
+                ["Plugins.MultiFactorAuth.GoogleAuthenticator.MFAMethodDescription"] = "Google Authenticator is a software-based authenticator by Google that implements two-step verification services, for authenticating users",
 
                 //validators
                 ["Plugins.MultiFactorAuth.GoogleAuthenticator.Fields.Code.Required"] = "Field cannot be empty. Enter the code from the Google Authenticator app no your mobile phone.",
@@ -138,6 +139,11 @@ namespace Nop.Plugin.MultiFactorAuth.GoogleAuthenticator
         #region Properies
 
         public MultiFactorAuthenticationType MultiFactorAuthenticationType => MultiFactorAuthenticationType.ApplicationVerification;
+
+        /// <summary>
+        /// Gets a multi-factor authentication method description that will be displayed on customer info pages in the public store
+        /// </summary>
+        public string MultiFactorAuthenticationMethodDescription => _localizationService.GetResource("Plugins.MultiFactorAuth.GoogleAuthenticator.MFAMethodDescription");
 
         #endregion
     }

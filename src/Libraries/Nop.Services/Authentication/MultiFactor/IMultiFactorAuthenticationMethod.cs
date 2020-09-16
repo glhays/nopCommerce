@@ -1,4 +1,5 @@
-﻿using Nop.Services.Plugins;
+﻿using Microsoft.Azure.Storage.Blob.Protocol;
+using Nop.Services.Plugins;
 
 namespace Nop.Services.Authentication.MultiFactor
 {
@@ -7,6 +8,8 @@ namespace Nop.Services.Authentication.MultiFactor
     /// </summary>
     public partial interface IMultiFactorAuthenticationMethod : IPlugin
     {
+        #region Methods
+
         /// <summary>
         ///  Gets a multifactor authentication type
         /// </summary>
@@ -23,5 +26,16 @@ namespace Nop.Services.Authentication.MultiFactor
         /// </summary>
         /// <returns>View component name</returns>
         string GetLoginViewComponentName();
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets a multi-factor authentication method description that will be displayed on customer info pages in the public store
+        /// </summary>
+        string MultiFactorAuthenticationMethodDescription { get; }
+
+        #endregion
     }
 }

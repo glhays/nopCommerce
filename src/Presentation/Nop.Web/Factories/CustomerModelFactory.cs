@@ -991,7 +991,7 @@ namespace Nop.Web.Factories
 
             providerModel.Name = _localizationService.GetLocalizedFriendlyName(mfaProvider, _workContext.WorkingLanguage.Id);
             providerModel.SystemName = sysName;
-            providerModel.Description = mfaProvider.PluginDescriptor.Description;
+            providerModel.Description = mfaProvider.MultiFactorAuthenticationMethodDescription;
             providerModel.LogoUrl = _mfaPluginManager.GetPluginLogoUrl(mfaProvider);
             providerModel.ViewComponentName = isLogin ? mfaProvider.GetLoginViewComponentName(): mfaProvider.GetPublicViewComponentName();
             providerModel.Selected = sysName == selectedProvider;
