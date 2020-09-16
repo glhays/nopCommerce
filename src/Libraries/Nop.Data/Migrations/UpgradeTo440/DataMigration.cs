@@ -79,6 +79,32 @@ namespace Nop.Data.Migrations.UpgradeTo440
                         Name = "Delete a specification attribute group"
                     }
                 );
+            //<MFA #475>
+            if (!_dataProvider.GetTable<PermissionRecord>().Any(pr => string.Compare(pr.SystemName, "ManageMultifactorAuthenticationMethods", true) == 0))
+            {
+                var multifactorAuthenticationPermission = _dataProvider.InsertEntity(
+                    new PermissionRecord
+                    {
+                        Name = "Admin area. Manage Multifactor Authentication Methods",
+                        SystemName = "ManageMultifactorAuthenticationMethods",
+                        Category = "Configuration"
+                    }
+                );
+
+                //add it to the Admin role by default
+                var adminRole = _dataProvider
+                    .GetTable<CustomerRole>()
+                    .FirstOrDefault(x => x.IsSystemRole && x.SystemName == NopCustomerDefaults.AdministratorsRoleName);
+
+                _dataProvider.InsertEntity(
+                    new PermissionRecordCustomerRoleMapping
+                    {
+                        CustomerRoleId = adminRole.Id,
+                        PermissionRecordId = multifactorAuthenticationPermission.Id
+                    }
+                );
+            }
+            //</MFA #475>
         }
 
         public override void Down()

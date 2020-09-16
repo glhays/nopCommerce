@@ -111,4 +111,13 @@
                 <span asp-validation-for="CustomerSettings.EnteringEmailTwice"></span>
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-md-3">
+                <nop-label asp-for="CustomerSettings.EnableMultifactorAuth" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="CustomerSettings.EnableMultifactorAuth" />
+                <span asp-validation-for="CustomerSettings.EnableMultifactorAuth"></span>
+            </div>
+        </div>
     </div>

@@ -216,7 +216,10 @@ namespace Nop.Web.Areas.Admin.Models.Settings
         public bool FaxRequired { get; set; }
 
         [NopResourceDisplayName("Admin.Configuration.Settings.CustomerUser.AcceptPrivacyPolicyEnabled")]
-        public bool AcceptPrivacyPolicyEnabled { get; set; }        
+        public bool AcceptPrivacyPolicyEnabled { get; set; }
+
+        [NopResourceDisplayName("Admin.Configuration.Settings.CustomerUser.EnableMultifactorAuth")]
+        public bool EnableMultifactorAuth { get; set; }
 
         #endregion
     }

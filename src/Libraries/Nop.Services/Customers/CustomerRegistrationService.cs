@@ -2,6 +2,7 @@
 using System.Linq;
 using Nop.Core;
 using Nop.Core.Domain.Customers;
+using Nop.Services.Authentication.MultiFactor;
 using Nop.Core.Events;
 using Nop.Services.Common;
 using Nop.Services.Localization;
@@ -25,6 +26,7 @@ namespace Nop.Services.Customers
         private readonly IEventPublisher _eventPublisher;
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly ILocalizationService _localizationService;
+        private readonly IMultiFactorAuthenticationPluginManager _mfaPluginManager;
         private readonly INewsLetterSubscriptionService _newsLetterSubscriptionService;
         private readonly IRewardPointService _rewardPointService;
         private readonly IStoreService _storeService;
@@ -42,6 +44,7 @@ namespace Nop.Services.Customers
             IEventPublisher eventPublisher,
             IGenericAttributeService genericAttributeService,
             ILocalizationService localizationService,
+            IMultiFactorAuthenticationPluginManager mfaPluginManager,
             INewsLetterSubscriptionService newsLetterSubscriptionService,
             IRewardPointService rewardPointService,
             IStoreService storeService,
@@ -55,6 +58,7 @@ namespace Nop.Services.Customers
             _eventPublisher = eventPublisher;
             _genericAttributeService = genericAttributeService;
             _localizationService = localizationService;
+            _mfaPluginManager = mfaPluginManager;
             _newsLetterSubscriptionService = newsLetterSubscriptionService;
             _rewardPointService = rewardPointService;
             _storeService = storeService;
@@ -143,6 +147,17 @@ namespace Nop.Services.Customers
                 _customerService.UpdateCustomer(customer);
 
                 return CustomerLoginResults.WrongPassword;
+            }
+
+            var selectedProvider = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.SelectedMultiFactorAuthProviderAttribute);
+            var enabledMFACustomer = _genericAttributeService.GetAttribute<bool>(customer, NopCustomerDefaults.MultiFactorIsEnabledAttribute);
+
+            if (!string.IsNullOrEmpty(selectedProvider))
+            {
+                var method = _mfaPluginManager.LoadPluginBySystemName(selectedProvider);
+                var methodIsActive = _mfaPluginManager.IsPluginActive(method);
+                if (methodIsActive && enabledMFACustomer && _customerSettings.EnableMultifactorAuth)
+                    return CustomerLoginResults.RequiresMultiFactor;
             }
 
             //update login details
