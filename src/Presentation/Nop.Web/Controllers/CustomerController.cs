@@ -1859,7 +1859,6 @@ namespace Nop.Web.Controllers
 
         #region Multifactor Authentication
 
-        [HttpsRequirement]
         //available even when a store is closed
         [CheckAccessClosedStore(true)]
         public virtual IActionResult MultiFactorAuthentication()
@@ -1910,7 +1909,6 @@ namespace Nop.Web.Controllers
             return View(model);
         }
 
-        [HttpsRequirement]
         public virtual IActionResult ConfigureMultiFactorAuthProvider(string providerSysName)
         {
             if (!_customerService.IsRegistered(_workContext.CurrentCustomer))
